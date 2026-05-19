@@ -4,8 +4,16 @@
 #include "raylib-cpp.hpp"
 #include <string>
 
+void RenderAxis()
+{
+    DrawLineEx({20.0f, 35.0f}, {100.0f, 35.0f}, 2.0f, RED);
+    DrawLineEx({20.0f, 35.0f}, {20.0f, 115.0f}, 2.0f, GREEN);
+}
+
 void Render(const Point2f &mouse, const AppState &appState)
 {
+    RenderAxis();
+
     Font font = GetFontDefault();
     // 点
     const auto &points = appState.GetPoints();
