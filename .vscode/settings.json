@@ -1,0 +1,6 @@
+{
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.configureArgs": ["-DCMAKE_BUILD_TYPE=Debug"],
+    "cmake.buildArgs": [],
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
+}
