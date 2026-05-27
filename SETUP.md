@@ -352,3 +352,26 @@ cmake -B build -DCMAKE_PREFIX_PATH=$(brew --prefix raylib)
 ### コメント行（`#`）が `zsh: command not found` になる
 
 複数行のコマンドをターミナルに貼り付ける際、コメント行（`#` で始まる行）は除いて貼り付ける。
+
+---
+
+### git submodule
+
+```bash
+# 追加
+git submodule add <URL> <ディレクトリ>
+
+# 更新(一括)
+git submodule update --remote --merge
+
+# 更新(個別)
+cd [サブモジュールへのパス]
+git pull origin main # または該当ブランチ名
+
+# 削除
+git submodule                           
+git submodule deinit sample/sample-submodules
+git rm -f sample/sample-submodules
+```
+
+

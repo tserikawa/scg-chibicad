@@ -7,3 +7,6 @@
 [submodule "libs/rlImGui"]
 	path = libs/rlImGui
 	url = https://github.com/raylib-extras/rlImGui.git
+[submodule "libs/scg-core"]
+	path = libs/scg-core
+	url = https://github.com/tserikawa/scg-core.git
