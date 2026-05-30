@@ -77,6 +77,28 @@ TEST(Point2Collection, Select_UnSelect)
     EXPECT_FALSE(point.IsSelected());
 }
 
+TEST(Point2Collection, UnSelectAll)
+{
+    ChibiCad::Point2Collection collection;
+    collection.Add(1.0f, 2.0f);
+    collection.Add(3.0f, 4.0f);
+    collection.Add(5.0f, 7.0f);
+    collection.Select(1.0f, 2.0f, 1e-6f);
+    collection.Select(3.0f, 4.0f, 1e-6f);
+    collection.Select(5.0f, 7.0f, 1e-6f);
+    std::vector<ChibiCad::Point2> points = collection.GetAll();
+    for (const auto &point : points)
+    {
+        EXPECT_TRUE(point.IsSelected());
+    }
+    collection.UnSelectAll();
+    points = collection.GetAll();
+    for (const auto &point : points)
+    {
+        EXPECT_FALSE(point.IsSelected());
+    }
+}
+
 TEST(Point2Collection, RenumberXAscending)
 {
     ChibiCad::Point2Collection collection;

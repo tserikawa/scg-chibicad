@@ -89,6 +89,14 @@ namespace ChibiCad
             }
         }
 
+        void UnSelectAll() noexcept
+        {
+            for (auto &point : m_points)
+            {
+                point.UnSelect();
+            }
+        }
+
         template <typename Compare>
         void Renumber(Compare compare) noexcept
         {

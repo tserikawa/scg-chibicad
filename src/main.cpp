@@ -26,8 +26,16 @@ int main()
         window.BeginDrawing();
         window.ClearBackground(raylib::Color(255, 255, 255));
 
-        // イベント
+        // マウス位置の取得
         raylib::Vector2 rayMouse = GetMousePosition();
+
+        // イベント
+        if (appState.GetCommand() == CommandState::UnSelectAllPoints)
+        {
+            appState.UnSelectAllPoints();
+            appState.ChangeCommand(CommandState::Neautral);
+        }
+
         bool isImGuiUseMouse = ImGui::GetIO().WantCaptureMouse;
         if (!isImGuiUseMouse)
         {

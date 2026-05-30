@@ -54,6 +54,11 @@ const std::vector<ChibiCad::Point2> &AppState::GetPoints() const noexcept
     return m_point2Collection.GetAll();
 }
 
+void AppState::UnSelectAllPoints() noexcept
+{
+    m_point2Collection.UnSelectAll();
+}
+
 bool &AppState::PointNumberVisible()
 {
     return m_isPointNumberVisible;

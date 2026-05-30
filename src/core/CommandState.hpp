@@ -8,6 +8,7 @@ enum class CommandState
     Quit,
     AddPoint,
     SelectPoint,
+    UnSelectAllPoints,
     DeletePoint,
     RenumberPointByXAscending,
     RenumberPointByXDescending,

@@ -30,6 +30,9 @@ public:
     int GetPointCount() const;
     const std::vector<ChibiCad::Point2> &GetPoints() const noexcept;
 
+    // 選択状態
+    void UnSelectAllPoints() noexcept;
+
     // 表示状態
     bool &PointNumberVisible();
     bool IsPointNumberVisible() const noexcept;

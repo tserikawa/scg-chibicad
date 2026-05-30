@@ -43,6 +43,11 @@ void DrawPointMenu(AppState &appState)
             appState.ChangeCommand(CommandState::SelectPoint);
             appState.ChangeStatusMessage("Select Point.");
         }
+        if (ImGui::MenuItem("UnSelect", NULL))
+        {
+            appState.ChangeCommand(CommandState::UnSelectAllPoints);
+            appState.ChangeStatusMessage("Unselected.");
+        }
         if (ImGui::BeginMenu("Renumber"))
         {
             if (ImGui::MenuItem("X /"))
