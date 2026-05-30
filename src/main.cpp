@@ -24,7 +24,7 @@ int main()
     {
         // ウインドウ設定
         window.BeginDrawing();
-        window.ClearBackground(raylib::Color(33, 33, 40));
+        window.ClearBackground(raylib::Color(255, 255, 255));
 
         // イベント
         raylib::Vector2 rayMouse = GetMousePosition();
