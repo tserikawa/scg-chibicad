@@ -1,15 +1,15 @@
 #pragma once
 
 #include "CommandState.hpp"
-#include "geometry/Point2f.hpp"
-#include "collection/PointCollection.hpp"
+#include "geometry/Point2.hpp"
+#include "collection/Point2Collection.hpp"
 #include <vector>
 
 class AppState
 {
     std::string m_statusMessage;
     CommandState m_command;
-    PointCollection m_pointCollection;
+    ChibiCad::Point2Collection m_point2Collection;
     bool m_isPointNumberVisible;
 
 public:
@@ -28,14 +28,14 @@ public:
 
     // 点
     int GetPointCount() const;
-    const std::vector<Point2f> &GetPoints() const noexcept;
+    const std::vector<ChibiCad::Point2> &GetPoints() const noexcept;
 
     // 表示状態
     bool &PointNumberVisible();
     bool IsPointNumberVisible() const noexcept;
 
     // イベント
-    void OnMouseLeftPressed(const Point2f mouse);
+    void OnMouseLeftPressed(float x, float y);
     void OnEscapeKeyPressed();
     void OnPointNumberRenumber();
 };

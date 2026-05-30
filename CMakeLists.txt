@@ -25,8 +25,6 @@ add_executable(${PROJECT_NAME}
     src/ui/ControlPanel.cpp
     src/core/AppState.cpp
     src/core/Renderer.cpp
-    src/geometry/Point2f.cpp
-    src/collection/PointCollection.cpp
     ${IMGUI_SOURCES}
     ${RLIMGUI_SOURCES}
 )
@@ -35,6 +33,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     libs/raylib-cpp/include
     libs/imgui
     libs/rlImGui
+    libs/scg-core/include
     src
 )
 
@@ -47,3 +46,24 @@ if(APPLE)
         "-framework OpenGL"
     )
 endif()
+
+# FetchContentモジュールを読み込む（外部ライブラリの自動取得に使用）
+include(FetchContent)
+
+# GoogleTestをGitHubから取得する設定
+# バージョンを変更する場合はURLのタグ（v1.14.0）を変更する
+FetchContent_Declare(
+    googletest
+    URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+)
+
+# GoogleTestをビルド対象に追加する
+FetchContent_MakeAvailable(googletest)
+
+# CMakeのテスト機能を有効化（add_testが使えるようになる）
+enable_testing()
+
+# Testsディレクトリのビルド設定を読み込む
+# ※ Testsフォルダ内にCMakeLists.txtが必要
+add_subdirectory(test)

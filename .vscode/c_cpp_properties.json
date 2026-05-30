@@ -4,7 +4,8 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/opt/homebrew/include/"
+                "/opt/homebrew/include/",
+                "${workspaceFolder}/build/_deps/googletest-src/googletest/include"
             ],
             "compilerPath": "/usr/bin/clang++",
             "macFrameworkPath": [

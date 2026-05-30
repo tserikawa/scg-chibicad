@@ -1,6 +1,5 @@
 #include "AppState.hpp"
 #include "Renderer.hpp"
-#include "geometry/Point2f.hpp"
 #include "raylib-cpp.hpp"
 #include <string>
 
@@ -22,7 +21,7 @@ void RenderGrid()
     rlPopMatrix();
 }
 
-void Render(const Point2f &mouse, const AppState &appState)
+void Render(const Vector2 &mouse, const AppState &appState)
 {
     RenderGrid();
     RenderAxis();

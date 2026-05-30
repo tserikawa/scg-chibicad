@@ -1,6 +1,7 @@
 #include "AppState.hpp"
-#include "geometry/Point2f.hpp"
 #include "CommandState.hpp"
+#include "geometry/Point2.hpp"
+#include "collection/Point2Collection.hpp"
 #include <vector>
 
 AppState::AppState()
@@ -15,7 +16,7 @@ void AppState::Reset() noexcept
     m_statusMessage = "Reset.";
     m_command = CommandState::Neautral;
     m_isPointNumberVisible = false;
-    m_pointCollection.Clear();
+    m_point2Collection.Clear();
 }
 
 void AppState::ChangeStatusMessage(const std::string message) noexcept
@@ -45,12 +46,12 @@ CommandState AppState::GetCommand() const noexcept
 
 int AppState::GetPointCount() const
 {
-    return m_pointCollection.Size();
+    return m_point2Collection.Size();
 }
 
-const std::vector<Point2f> &AppState::GetPoints() const noexcept
+const std::vector<ChibiCad::Point2> &AppState::GetPoints() const noexcept
 {
-    return m_pointCollection.GetAll();
+    return m_point2Collection.GetAll();
 }
 
 bool &AppState::PointNumberVisible()
@@ -62,23 +63,23 @@ bool AppState::IsPointNumberVisible() const noexcept
     return m_isPointNumberVisible;
 }
 
-void AppState::OnMouseLeftPressed(const Point2f mouse)
+void AppState::OnMouseLeftPressed(float x, float y)
 {
     if (m_command == CommandState::AddPoint)
     {
-        m_pointCollection.Add(mouse);
+        m_point2Collection.Add(x, y);
         return;
     }
 
     if (m_command == CommandState::SelectPoint)
     {
-        m_pointCollection.Select(mouse);
+        m_point2Collection.Select(x, y, ChibiCad::CoincidentEpsilon);
         return;
     }
 
     if (m_command == CommandState::DeletePoint)
     {
-        m_pointCollection.Delete(mouse);
+        m_point2Collection.Remove(x, y, ChibiCad::CoincidentEpsilon);
         return;
     }
 }
@@ -93,25 +94,25 @@ void AppState::OnPointNumberRenumber()
 {
     if (m_command == CommandState::RenumberPointByXAscending)
     {
-        m_pointCollection.Renumber(CompareXAscending);
+        m_point2Collection.Renumber(ChibiCad::CompareXAscending);
         return;
     }
 
     if (m_command == CommandState::RenumberPointByXDescending)
     {
-        m_pointCollection.Renumber(CompareXDescending);
+        m_point2Collection.Renumber(ChibiCad::CompareXDescending);
         return;
     }
 
     if (m_command == CommandState::RenumberPointByYAscending)
     {
-        m_pointCollection.Renumber(CompareYAscending);
+        m_point2Collection.Renumber(ChibiCad::CompareYAscending);
         return;
     }
 
     if (m_command == CommandState::RenumberPointByYDescending)
     {
-        m_pointCollection.Renumber(CompareYDescending);
+        m_point2Collection.Renumber(ChibiCad::CompareYDescending);
         return;
     }
 }

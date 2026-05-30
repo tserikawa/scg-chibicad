@@ -28,18 +28,17 @@ int main()
 
         // イベント
         raylib::Vector2 rayMouse = GetMousePosition();
-        Point2f mouse = Point2f(rayMouse.x, rayMouse.y);
         bool isImGuiUseMouse = ImGui::GetIO().WantCaptureMouse;
         if (!isImGuiUseMouse)
         {
             if (raylib::Mouse::IsButtonPressed(MOUSE_BUTTON_LEFT))
             {
-                appState.OnMouseLeftPressed(mouse);
+                appState.OnMouseLeftPressed(rayMouse.x, rayMouse.y);
             }
         }
 
         appState.OnPointNumberRenumber();
-        Render(mouse, appState);
+        Render(rayMouse, appState);
 
         // ImGui
         rlImGuiBegin();
