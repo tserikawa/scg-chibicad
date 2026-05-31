@@ -3,14 +3,14 @@
 #include "core/AppState.hpp"
 #include "core/Renderer.hpp"
 
-#include "raylib-cpp.hpp"
+#include "raylib.h"
 #include "rlImGui.h"
 #include "imgui.h"
 
 int main()
 {
-    raylib::Window window(1280, 720, "Geometry App");
-    window.SetTargetFPS(60);
+    InitWindow(1280, 720, "Geometry App");
+    SetTargetFPS(60);
 
     // ImGui の初期化（raylib の InitWindow 後に呼ぶ）
     rlImGuiSetup(true);
@@ -20,14 +20,14 @@ int main()
     Font font = GetFontDefault();
 
     SetExitKey(KEY_NULL);
-    while (!window.ShouldClose())
+    while (!WindowShouldClose())
     {
         // ウインドウ設定
-        window.BeginDrawing();
-        window.ClearBackground(raylib::Color(255, 255, 255));
+        BeginDrawing();
+        ClearBackground(Color{255, 255, 255});
 
         // マウス位置の取得
-        raylib::Vector2 rayMouse = GetMousePosition();
+        Vector2 rayMouse = GetMousePosition();
 
         // イベント
         appState.OnPointEvent();
@@ -35,7 +35,7 @@ int main()
         bool isImGuiUseMouse = ImGui::GetIO().WantCaptureMouse;
         if (!isImGuiUseMouse)
         {
-            if (raylib::Mouse::IsButtonPressed(MOUSE_BUTTON_LEFT))
+            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
                 appState.OnMouseLeftPressed(rayMouse.x, rayMouse.y);
             }
@@ -50,7 +50,7 @@ int main()
         DrawMenuBar(appState);
         rlImGuiEnd();
 
-        if (raylib::Keyboard::IsKeyPressed(KEY_ESCAPE))
+        if (IsKeyPressed(KEY_ESCAPE))
         {
             appState.OnEscapeKeyPressed();
         }
@@ -60,7 +60,7 @@ int main()
             break;
         }
 
-        window.EndDrawing();
+        EndDrawing();
     }
 
     // ImGui の終了処理（CloseWindow 前に呼ぶ）

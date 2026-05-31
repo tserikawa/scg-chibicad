@@ -1,6 +1,7 @@
 #include "AppState.hpp"
 #include "Renderer.hpp"
-#include "raylib-cpp.hpp"
+#include "raylib.h"
+#include "rlgl.h"
 #include <string>
 
 void RenderAxis()
@@ -31,15 +32,14 @@ void Render(const Vector2 &mouse, const AppState &appState)
     const auto &points = appState.GetPoints();
     for (int i = 0; i < points.size(); i++)
     {
-        raylib::Color color = points[i].IsSelected() ? RED : BLACK;
-        raylib::Vector2 point = Vector2{points[i].X(), points[i].Y()};
-        point.DrawCircle(4.0f, color);
+        Color color = points[i].IsSelected() ? RED : BLACK;
+        DrawCircle(points[i].X(), points[i].Y(), 4.0f, color);
 
         if (appState.IsPointNumberVisible())
         {
-            raylib::Vector2 textLocation = point.Add(Vector2{5.0f, 5.0f});
+            Vector2 textLocation = Vector2{points[i].X() + 5.0f, points[i].Y() + 5.0f};
             std::string text = std::to_string(points[i].Id());
-            raylib::DrawTextEx(font, text, textLocation, 15.0f, 2.0f, BLACK);
+            DrawTextEx(font, text.c_str(), textLocation, 15.0f, 2.0f, BLACK);
         }
     }
 }
