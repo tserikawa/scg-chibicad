@@ -35,7 +35,7 @@ public:
     bool IsPointNumberVisible() const noexcept;
 
     // イベント
-    void OnMouseLeftPressed(float x, float y);
-    void OnEscapeKeyPressed();
-    void OnPointEvent();
+    void InvokeMouseLeftPressedEvent(float x, float y);
+    void InvokeEscapeKeyPressedEvent();
+    void InvokePointEvent();
 };

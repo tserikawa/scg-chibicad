@@ -30,15 +30,20 @@ int main()
         Vector2 rayMouse = GetMousePosition();
 
         // イベント
-        appState.OnPointEvent();
+        appState.InvokePointEvent();
 
         bool isImGuiUseMouse = ImGui::GetIO().WantCaptureMouse;
         if (!isImGuiUseMouse)
         {
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
-                appState.OnMouseLeftPressed(rayMouse.x, rayMouse.y);
+                appState.InvokeMouseLeftPressedEvent(rayMouse.x, rayMouse.y);
             }
+        }
+
+        if (IsKeyPressed(KEY_ESCAPE))
+        {
+            appState.InvokeEscapeKeyPressedEvent();
         }
 
         // オブジェクトの表示
@@ -50,11 +55,6 @@ int main()
         DrawMenuBar(appState);
         rlImGuiEnd();
 
-        if (IsKeyPressed(KEY_ESCAPE))
-        {
-            appState.OnEscapeKeyPressed();
-        }
-
         if (appState.ShouldQuit())
         {
             break;
@@ -62,9 +62,8 @@ int main()
 
         EndDrawing();
     }
-
     // ImGui の終了処理（CloseWindow 前に呼ぶ）
     rlImGuiShutdown();
-
+    CloseWindow();
     return 0;
 }

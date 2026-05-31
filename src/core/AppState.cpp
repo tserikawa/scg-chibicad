@@ -63,7 +63,7 @@ bool AppState::IsPointNumberVisible() const noexcept
     return m_isPointNumberVisible;
 }
 
-void AppState::OnMouseLeftPressed(float x, float y)
+void AppState::InvokeMouseLeftPressedEvent(float x, float y)
 {
     if (m_command == CommandState::AddPoint)
     {
@@ -84,13 +84,13 @@ void AppState::OnMouseLeftPressed(float x, float y)
     }
 }
 
-void AppState::OnEscapeKeyPressed()
+void AppState::InvokeEscapeKeyPressedEvent()
 {
     this->ChangeCommand(CommandState::Neautral);
     this->ChangeStatusMessage("Waiting");
 }
 
-void AppState::OnPointEvent()
+void AppState::InvokePointEvent()
 {
     if (this->GetCommand() == CommandState::UnSelectAllPoints)
     {
