@@ -30,11 +30,7 @@ int main()
         raylib::Vector2 rayMouse = GetMousePosition();
 
         // イベント
-        if (appState.GetCommand() == CommandState::UnSelectAllPoints)
-        {
-            appState.UnSelectAllPoints();
-            appState.ChangeCommand(CommandState::Neautral);
-        }
+        appState.OnPointEvent();
 
         bool isImGuiUseMouse = ImGui::GetIO().WantCaptureMouse;
         if (!isImGuiUseMouse)
@@ -45,7 +41,7 @@ int main()
             }
         }
 
-        appState.OnPointNumberRenumber();
+        // オブジェクトの表示
         Render(rayMouse, appState);
 
         // ImGui

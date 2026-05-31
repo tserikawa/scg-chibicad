@@ -54,11 +54,6 @@ const std::vector<ChibiCad::Point2> &AppState::GetPoints() const noexcept
     return m_point2Collection.GetAll();
 }
 
-void AppState::UnSelectAllPoints() noexcept
-{
-    m_point2Collection.UnSelectAll();
-}
-
 bool &AppState::PointNumberVisible()
 {
     return m_isPointNumberVisible;
@@ -95,8 +90,22 @@ void AppState::OnEscapeKeyPressed()
     this->ChangeStatusMessage("Waiting");
 }
 
-void AppState::OnPointNumberRenumber()
+void AppState::OnPointEvent()
 {
+    if (this->GetCommand() == CommandState::UnSelectAllPoints)
+    {
+        m_point2Collection.UnSelectAll();
+        this->ChangeCommand(CommandState::Neautral);
+    }
+
+    if (this->GetCommand() == CommandState::DeletePoint)
+    {
+        if (m_point2Collection.RemoveSelected())
+        {
+            this->ChangeStatusMessage("Selected points are deleted.");
+        }
+    }
+
     if (m_command == CommandState::RenumberPointByXAscending)
     {
         m_point2Collection.Renumber(ChibiCad::CompareXAscending);

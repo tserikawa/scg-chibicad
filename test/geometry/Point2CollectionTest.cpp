@@ -28,6 +28,19 @@ TEST(Point2Collection, Remove)
     EXPECT_TRUE(collection[1] == ChibiCad::Point2(2, 3.0f, 4.0f));
 }
 
+TEST(Point2Collection, RemoveSelected)
+{
+    ChibiCad::Point2Collection collection;
+    collection.Add(1.0f, 2.0f);
+    collection.Add(3.0f, 4.0f);
+    collection.Add(5.0f, 7.0f);
+    collection.Select(3.0f, 4.0f, 1e-6f);
+    collection.Select(5.0f, 7.0f, 1e-6f);
+    collection.RemoveSelected();
+    EXPECT_EQ(1, collection.Size());
+    EXPECT_TRUE(collection[0] == ChibiCad::Point2(1, 1.0f, 2.0f));
+}
+
 TEST(Point2Collection, Clear_Size)
 {
     ChibiCad::Point2Collection collection;

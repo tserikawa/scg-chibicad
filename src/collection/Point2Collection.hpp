@@ -37,6 +37,22 @@ namespace ChibiCad
             }
         }
 
+        bool RemoveSelected() noexcept
+        {
+            bool isRemoved = false;
+            std::vector<ChibiCad::Point2> newPoints;
+            for (const auto &point : m_points)
+            {
+                if (!point.IsSelected())
+                {
+                    newPoints.emplace_back(point);
+                    isRemoved = true;
+                }
+            }
+            m_points = newPoints;
+            return isRemoved;
+        }
+
         void Clear() noexcept
         {
             m_points.clear();
