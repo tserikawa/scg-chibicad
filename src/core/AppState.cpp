@@ -80,7 +80,14 @@ void AppState::InvokeMouseLeftPressedEvent(float x, float y)
 
     if (m_command == CommandState::SelectPoint)
     {
-        m_point2Collection.Select(x, y, ChibiCad::CoincidentEpsilon);
+        if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT))
+        {
+            m_point2Collection.UnSelect(x, y, ChibiCad::CoincidentEpsilon);
+        }
+        else
+        {
+            m_point2Collection.Select(x, y, ChibiCad::CoincidentEpsilon);
+        }
         return;
     }
 
