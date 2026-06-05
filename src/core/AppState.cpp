@@ -1,14 +1,16 @@
 #include "AppState.hpp"
 #include "CommandState.hpp"
-#include "geometry/Point2.hpp"
 #include "collection/Point2Collection.hpp"
+#include "geometry/Point2.hpp"
+#include "raylib.h"
 #include <vector>
 
 AppState::AppState()
+    : m_statusMessage("Waiting"),
+      m_command(CommandState::Neautral),
+      m_isPointNumberVisible(false),
+      m_mousePressedLocation(0.0f, 0.0f)
 {
-    m_statusMessage = "Waiting";
-    m_command = CommandState::Neautral;
-    m_isPointNumberVisible = false;
 }
 
 void AppState::Reset() noexcept
@@ -65,6 +67,11 @@ bool AppState::IsPointNumberVisible() const noexcept
 
 void AppState::InvokeMouseLeftPressedEvent(float x, float y)
 {
+    if (!IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    {
+        return;
+    }
+
     if (m_command == CommandState::AddPoint)
     {
         m_point2Collection.Add(x, y);
@@ -86,12 +93,18 @@ void AppState::InvokeMouseLeftPressedEvent(float x, float y)
 
 void AppState::InvokeEscapeKeyPressedEvent()
 {
+    if (!IsKeyPressed(KEY_ESCAPE))
+    {
+        return;
+    }
+
     this->ChangeCommand(CommandState::Neautral);
     this->ChangeStatusMessage("Waiting");
 }
 
-void AppState::InvokePointEvent()
+void AppState::InvokePoint2CollectionEvent()
 {
+
     if (this->GetCommand() == CommandState::UnSelectAllPoints)
     {
         m_point2Collection.UnSelectAll();
@@ -128,5 +141,26 @@ void AppState::InvokePointEvent()
     {
         m_point2Collection.Renumber(ChibiCad::CompareYDescending);
         return;
+    }
+}
+
+void AppState::InvokeMouseDraggingEvent(float x, float y)
+{
+    if (m_command == CommandState::MovePoint)
+    {
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && !m_point2Collection.IsAnyPointDragging())
+        {
+            m_point2Collection.SetDraggingIndex(x, y, ChibiCad::CoincidentEpsilon);
+        }
+
+        if (m_point2Collection.IsAnyPointDragging())
+        {
+            m_point2Collection.UpdateDraggingPoint(x, y);
+        }
+
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+        {
+            m_point2Collection.ResetDraggingIndex();
+        }
     }
 }

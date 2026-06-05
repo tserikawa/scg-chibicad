@@ -1,19 +1,22 @@
 #pragma once
 
 #include "geometry/Point2.hpp"
-#include <vector>
 #include <optional>
+#include <vector>
 
 namespace ChibiCad
 {
     class Point2Collection
     {
-    private:
+      private:
         std::vector<Point2> m_points;
         int m_lastId;
+        std::optional<size_t> m_draggingIndex;
 
-    public:
-        Point2Collection() : m_lastId(0) {};
+      public:
+        Point2Collection()
+            : m_lastId(0),
+              m_draggingIndex(std::nullopt) {};
 
         const Point2 &operator[](size_t i) const
         {
@@ -76,6 +79,42 @@ namespace ChibiCad
             return m_points;
         }
 
+        bool IsAnyPointDragging() const noexcept
+        {
+            return m_draggingIndex.has_value();
+        }
+
+        void SetDraggingIndex(float x, float y, float tolerance) noexcept
+        {
+            for (size_t i = 0; i < m_points.size(); i++)
+            {
+                if (m_points[i].EpsilonEqual(x, y, tolerance))
+                {
+                    m_draggingIndex = i;
+                    return;
+                }
+            }
+            m_draggingIndex = std::nullopt;
+            return;
+        }
+
+        void UpdateDraggingPoint(float x, float y) noexcept
+        {
+            if (!m_draggingIndex.has_value())
+            {
+                return;
+            }
+
+            size_t index = m_draggingIndex.value();
+            ChibiCad::Point2 point = m_points[index];
+            m_points[index] = ChibiCad::Point2(point.Id(), x, y);
+        }
+
+        void ResetDraggingIndex() noexcept
+        {
+            m_draggingIndex = std::nullopt;
+        }
+
         int Size() const noexcept
         {
             return m_points.size();
@@ -113,8 +152,7 @@ namespace ChibiCad
             }
         }
 
-        template <typename Compare>
-        void Renumber(Compare compare) noexcept
+        template <typename Compare> void Renumber(Compare compare) noexcept
         {
             std::sort(m_points.begin(), m_points.end(), compare);
 
@@ -125,4 +163,4 @@ namespace ChibiCad
             m_lastId = m_points.size();
         }
     };
-}
+} // namespace ChibiCad

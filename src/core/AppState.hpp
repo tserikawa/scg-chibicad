@@ -1,8 +1,8 @@
 #pragma once
 
 #include "CommandState.hpp"
-#include "geometry/Point2.hpp"
 #include "collection/Point2Collection.hpp"
+#include "geometry/Point2.hpp"
 #include <vector>
 
 class AppState
@@ -12,7 +12,10 @@ class AppState
     ChibiCad::Point2Collection m_point2Collection;
     bool m_isPointNumberVisible;
 
-public:
+    // マウス
+    SCG::Point2 m_mousePressedLocation;
+
+  public:
     explicit AppState();
 
     void Reset() noexcept;
@@ -37,5 +40,6 @@ public:
     // イベント
     void InvokeMouseLeftPressedEvent(float x, float y);
     void InvokeEscapeKeyPressedEvent();
-    void InvokePointEvent();
+    void InvokePoint2CollectionEvent();
+    void InvokeMouseDraggingEvent(float x, float y);
 };

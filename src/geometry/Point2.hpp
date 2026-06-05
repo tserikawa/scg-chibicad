@@ -1,20 +1,31 @@
 #pragma once
 
-#include "scg/geometry/Point2.hpp"
 #include "core/Constants.hpp"
+#include "scg/geometry/Point2.hpp"
 
 namespace ChibiCad
 {
     class Point2
     {
-    private:
+      private:
         int m_id;
         SCG::Point2 m_location;
         bool m_isSelected;
 
-    public:
+      public:
         Point2(int id, float x, float y)
-            : m_id(id), m_location(SCG::Point2(x, y)), m_isSelected(false) {}
+            : m_id(id),
+              m_location(SCG::Point2(x, y)),
+              m_isSelected(false)
+        {
+        }
+
+        Point2(float x, float y)
+            : m_id(-1),
+              m_location(SCG::Point2(x, y)),
+              m_isSelected(false)
+        {
+        }
 
         bool operator==(const Point2 &other) const noexcept
         {
@@ -103,4 +114,4 @@ namespace ChibiCad
     {
         return lhs.Y() > rhs.Y();
     }
-}
+} // namespace ChibiCad

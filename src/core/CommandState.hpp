@@ -10,6 +10,7 @@ enum class CommandState
     SelectPoint,
     UnSelectAllPoints,
     DeletePoint,
+    MovePoint,
     RenumberPointByXAscending,
     RenumberPointByXDescending,
     RenumberPointByYAscending,
@@ -32,6 +33,8 @@ inline std::string GetCommandDisplayName(CommandState command) noexcept
         return "UnSelectAllPoints";
     case CommandState::DeletePoint:
         return "DeletePoint";
+    case CommandState::MovePoint:
+        return "MovePoint";
     case CommandState::RenumberPointByXAscending:
         return "RenumberPointByXAscending";
     case CommandState::RenumberPointByXDescending:

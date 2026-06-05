@@ -1,5 +1,5 @@
-#include "AppState.hpp"
 #include "Renderer.hpp"
+#include "AppState.hpp"
 #include "raylib.h"
 #include "rlgl.h"
 #include <string>
@@ -41,5 +41,13 @@ void Render(const Vector2 &mouse, const AppState &appState)
             std::string text = std::to_string(points[i].Id());
             DrawTextEx(font, text.c_str(), textLocation, 15.0f, 2.0f, BLACK);
         }
+    }
+
+    // 点同士を接続する線
+    for (size_t i = 0; i + 1 < points.size(); i++)
+    {
+        Vector2 start{points[i].X(), points[i].Y()};
+        Vector2 end{points[i + 1].X(), points[i + 1].Y()};
+        DrawLine(start.x, start.y, end.x, end.y, BLUE);
     }
 }

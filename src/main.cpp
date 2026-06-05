@@ -1,11 +1,11 @@
-#include "ui/MenuBar.hpp"
-#include "ui/ControlPanel.hpp"
 #include "core/AppState.hpp"
 #include "core/Renderer.hpp"
+#include "ui/ControlPanel.hpp"
+#include "ui/MenuBar.hpp"
 
+#include "imgui.h"
 #include "raylib.h"
 #include "rlImGui.h"
-#include "imgui.h"
 
 int main()
 {
@@ -30,20 +30,14 @@ int main()
         Vector2 rayMouse = GetMousePosition();
 
         // イベント
-        appState.InvokePointEvent();
+        appState.InvokeMouseDraggingEvent(rayMouse.x, rayMouse.y);
+        appState.InvokeEscapeKeyPressedEvent();
+        appState.InvokePoint2CollectionEvent();
 
         bool isImGuiUseMouse = ImGui::GetIO().WantCaptureMouse;
         if (!isImGuiUseMouse)
         {
-            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            {
-                appState.InvokeMouseLeftPressedEvent(rayMouse.x, rayMouse.y);
-            }
-        }
-
-        if (IsKeyPressed(KEY_ESCAPE))
-        {
-            appState.InvokeEscapeKeyPressedEvent();
+            appState.InvokeMouseLeftPressedEvent(rayMouse.x, rayMouse.y);
         }
 
         // オブジェクトの表示
