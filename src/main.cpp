@@ -32,6 +32,7 @@ int main()
         // イベント
         appState.InvokeMouseDraggingEvent(rayMouse.x, rayMouse.y);
         appState.InvokeEscapeKeyPressedEvent();
+        appState.InvokeDeleteKeyPressedEvent();
         appState.InvokePoint2CollectionEvent();
 
         bool isImGuiUseMouse = ImGui::GetIO().WantCaptureMouse;

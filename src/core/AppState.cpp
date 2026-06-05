@@ -109,6 +109,14 @@ void AppState::InvokeEscapeKeyPressedEvent()
     this->ChangeStatusMessage("Waiting");
 }
 
+void AppState::InvokeDeleteKeyPressedEvent()
+{
+    if (IsKeyPressed(KEY_DELETE))
+    {
+        m_point2Collection.RemoveSelected();
+    }
+}
+
 void AppState::InvokePoint2CollectionEvent()
 {
 

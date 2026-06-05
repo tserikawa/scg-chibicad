@@ -40,6 +40,7 @@ class AppState
     // イベント
     void InvokeMouseLeftPressedEvent(float x, float y);
     void InvokeEscapeKeyPressedEvent();
+    void InvokeDeleteKeyPressedEvent();
     void InvokePoint2CollectionEvent();
     void InvokeMouseDraggingEvent(float x, float y);
 };
