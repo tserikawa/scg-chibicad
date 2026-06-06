@@ -98,6 +98,11 @@ namespace ChibiCad
             return;
         }
 
+        std::optional<size_t> GetDraggingIndex() const noexcept
+        {
+            return m_draggingIndex;
+        }
+
         void UpdateDraggingPoint(float x, float y) noexcept
         {
             if (!m_draggingIndex.has_value())

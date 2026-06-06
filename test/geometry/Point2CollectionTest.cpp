@@ -112,6 +112,21 @@ TEST(Point2Collection, UnSelectAll)
     }
 }
 
+TEST(Point2Collection, Dragging)
+{
+    ChibiCad::Point2Collection collection;
+    collection.Add(3.0f, 4.0f);
+    collection.Add(1.0f, 2.0f);
+    collection.Add(5.0f, 7.0f);
+    EXPECT_FALSE(collection.IsAnyPointDragging());
+    collection.SetDraggingIndex(1.0f, 2.0f, 1e-6f);
+    EXPECT_TRUE(collection.IsAnyPointDragging());
+    EXPECT_EQ(1, collection.GetDraggingIndex().value());
+    collection.UpdateDraggingPoint(0.0f, 0.0f);
+    EXPECT_TRUE(collection.GetAll()[1].X() == 0.0f);
+    EXPECT_TRUE(collection.GetAll()[1].Y() == 0.0f);
+}
+
 TEST(Point2Collection, RenumberXAscending)
 {
     ChibiCad::Point2Collection collection;
