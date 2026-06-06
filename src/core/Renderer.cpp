@@ -50,4 +50,14 @@ void Render(const Vector2 &mouse, const AppState &appState)
         Vector2 end{points[i + 1].X(), points[i + 1].Y()};
         DrawLine(start.x, start.y, end.x, end.y, BLUE);
     }
+
+    // 選択範囲を示す矩形
+    std::optional<SCG::Point2> corner = appState.GetSelectRectangleStartPoint();
+    if (corner.has_value())
+    {
+        SCG::Point2 point = corner.value();
+        int width = (int)(mouse.x - point.X());
+        int height = (int)(mouse.y - point.Y());
+        DrawRectangleLines(point.X(), point.Y(), width, height, RED);
+    }
 }

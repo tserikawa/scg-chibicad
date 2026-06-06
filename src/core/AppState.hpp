@@ -3,6 +3,7 @@
 #include "CommandState.hpp"
 #include "collection/Point2Collection.hpp"
 #include "geometry/Point2.hpp"
+#include <optional>
 #include <vector>
 
 class AppState
@@ -13,7 +14,7 @@ class AppState
     bool m_isPointNumberVisible;
 
     // マウス
-    SCG::Point2 m_mousePressedLocation;
+    std::optional<SCG::Point2> m_mousePressedLocation;
 
   public:
     explicit AppState();
@@ -32,6 +33,9 @@ class AppState
     // 点
     int GetPointCount() const;
     const std::vector<ChibiCad::Point2> &GetPoints() const noexcept;
+
+    // 選択範囲を示す矩形の始点
+    const std::optional<SCG::Point2> &GetSelectRectangleStartPoint() const noexcept;
 
     // 表示状態
     bool &PointNumberVisible();

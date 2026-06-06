@@ -132,6 +132,18 @@ namespace ChibiCad
             }
         }
 
+        void SelectByRectangle(float minX, float maxX, float minY, float maxY) noexcept
+        {
+            for (size_t i = 0; i < m_points.size(); i++)
+            {
+                if (minX <= m_points[i].X() && m_points[i].X() <= maxX && minY <= m_points[i].Y() &&
+                    m_points[i].Y() <= maxY)
+                {
+                    m_points[i].Select();
+                }
+            }
+        }
+
         void UnSelect(float x, float y, float tolerance) noexcept
         {
             for (size_t i = 0; i < m_points.size(); i++)

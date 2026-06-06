@@ -3,13 +3,15 @@
 #include "collection/Point2Collection.hpp"
 #include "geometry/Point2.hpp"
 #include "raylib.h"
+#include <algorithm>
+#include <optional>
 #include <vector>
 
 AppState::AppState()
     : m_statusMessage("Waiting"),
       m_command(CommandState::Neautral),
       m_isPointNumberVisible(false),
-      m_mousePressedLocation(0.0f, 0.0f)
+      m_mousePressedLocation(std::nullopt)
 {
 }
 
@@ -63,6 +65,11 @@ bool &AppState::PointNumberVisible()
 bool AppState::IsPointNumberVisible() const noexcept
 {
     return m_isPointNumberVisible;
+}
+
+const std::optional<SCG::Point2> &AppState::GetSelectRectangleStartPoint() const noexcept
+{
+    return m_mousePressedLocation;
 }
 
 void AppState::InvokeMouseLeftPressedEvent(float x, float y)
@@ -176,6 +183,27 @@ void AppState::InvokeMouseDraggingEvent(float x, float y)
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
         {
             m_point2Collection.ResetDraggingIndex();
+        }
+    }
+
+    if (m_command == CommandState::SelectPoint)
+    {
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !m_mousePressedLocation.has_value())
+        {
+            m_mousePressedLocation = SCG::Point2(x, y);
+        }
+
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+        {
+            if (m_mousePressedLocation)
+            {
+                float minX = std::min(x, m_mousePressedLocation->X());
+                float maxX = std::max(x, m_mousePressedLocation->X());
+                float minY = std::min(y, m_mousePressedLocation->Y());
+                float maxY = std::max(y, m_mousePressedLocation->Y());
+                m_point2Collection.SelectByRectangle(minX, maxX, minY, maxY);
+            }
+            m_mousePressedLocation = std::nullopt;
         }
     }
 }
