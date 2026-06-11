@@ -30,15 +30,15 @@ int main()
         Vector2 rayMouse = GetMousePosition();
 
         // イベント
-        appState.InvokeMouseDraggingEvent(rayMouse.x, rayMouse.y);
-        appState.InvokeEscapeKeyPressedEvent();
-        appState.InvokeDeleteKeyPressedEvent();
-        appState.InvokePoint2CollectionEvent();
-
         bool isImGuiUseMouse = ImGui::GetIO().WantCaptureMouse;
-        if (!isImGuiUseMouse)
+        // 変更後
+        if (!isImGuiUseMouse && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
-            appState.InvokeMouseLeftPressedEvent(rayMouse.x, rayMouse.y);
+            appState.OnMouseLeftPressed(rayMouse.x, rayMouse.y);
+        }
+        if (IsKeyPressed(KEY_ESCAPE))
+        {
+            appState.OnEscapeKeyPressed();
         }
 
         // オブジェクトの表示

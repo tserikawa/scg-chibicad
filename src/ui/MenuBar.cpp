@@ -17,7 +17,7 @@ void DrawFileMenu(AppState &appState)
         ImGui::Separator();
         if (ImGui::MenuItem("Quit", "Cmd+Q"))
         {
-            appState.ChangeCommand(CommandState::Quit);
+            appState.SetQuit();
             appState.ChangeStatusMessage("Quit.");
         }
         ImGui::EndMenu();
@@ -30,52 +30,52 @@ void DrawPointMenu(AppState &appState)
     {
         if (ImGui::MenuItem("Add", NULL))
         {
-            appState.ChangeCommand(CommandState::AddPoint);
+            appState.SetAddPointMode();
             appState.ChangeStatusMessage("Add Point.");
         }
         if (ImGui::MenuItem("Delete", NULL))
         {
-            appState.ChangeCommand(CommandState::DeletePoint);
+            appState.SetDeletePointMode();
             appState.ChangeStatusMessage("Delete Point.");
         }
         if (ImGui::MenuItem("Select", NULL))
         {
-            appState.ChangeCommand(CommandState::SelectPoint);
+            appState.SetSelectPointMode();
             appState.ChangeStatusMessage("Select Point.");
         }
         if (ImGui::MenuItem("UnSelect", NULL))
         {
-            appState.ChangeCommand(CommandState::UnSelectAllPoints);
+            // appState.ChangeCommand(CommandState::UnSelectAllPoints);
             appState.ChangeStatusMessage("Unselected.");
         }
         if (ImGui::MenuItem("Move", NULL))
         {
-            appState.ChangeCommand(CommandState::MovePoint);
+            // appState.ChangeCommand(CommandState::MovePoint);
             appState.ChangeStatusMessage("MovePoint.");
         }
         if (ImGui::BeginMenu("Renumber"))
         {
             if (ImGui::MenuItem("X /"))
             {
-                appState.ChangeCommand(CommandState::RenumberPointByXAscending);
+                // appState.ChangeCommand(CommandState::RenumberPointByXAscending);
                 appState.ChangeStatusMessage("Renumbered by coodinate x ascending.");
             }
 
             if (ImGui::MenuItem("X \\"))
             {
-                appState.ChangeCommand(CommandState::RenumberPointByXDescending);
+                // appState.ChangeCommand(CommandState::RenumberPointByXDescending);
                 appState.ChangeStatusMessage("Renumbered by coodinate x descending.");
             }
 
             if (ImGui::MenuItem("Y /"))
             {
-                appState.ChangeCommand(CommandState::RenumberPointByYAscending);
+                // appState.ChangeCommand(CommandState::RenumberPointByYAscending);
                 appState.ChangeStatusMessage("Renumbered by coodinate y ascending.");
             }
 
             if (ImGui::MenuItem("Y \\"))
             {
-                appState.ChangeCommand(CommandState::RenumberPointByYDescending);
+                // appState.ChangeCommand(CommandState::RenumberPointByYDescending);
                 appState.ChangeStatusMessage("Renumbered by coodinate y descending.");
             }
 
